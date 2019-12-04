@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-flask-postgres
+  labels:
+    role: myrole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: myrole
+  template:
+    metadata:
+      labels:
+        role: myrole
+    spec:
+      containers:
+      - name: test-crud-pg
+        image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-afp:1.0.5
