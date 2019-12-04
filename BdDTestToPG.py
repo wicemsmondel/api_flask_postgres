@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 try:
-    engine = create_engine("postgresql://postgres:WRMNSXGol1@a3c7d191f15bb11ea9df302af6eaa18b-1278716746.eu-west-1.elb.amazonaws.com:5432/wo-database")
+    engine = create_engine("postgresql://postgres:WRMNSXGol1@a8f213870167411ea9df302af6eaa18b-1639397014.eu-west-1.elb.amazonaws.com:5432/wo-database")
 except:
     print("ERROR IN CONNECTION")
 
@@ -20,14 +20,7 @@ class Database(Base):
     User = Column(String)
     Password = Column(String)
     Namespace = Column(String)  
-
-    def create(self, myId, myName, myOwner, myUser, myPwd, myNs):
-        self.id=myId
-        self.Name=myName
-        self.Owner=myOwner
-        self.User=myUser
-        self.Password=myPwd
-        self.Namespace=myNs
+    
 
 Base.metadata.create_all(engine)
 
@@ -46,5 +39,29 @@ def set_bddClient (nameBddClt, ownerBddClt, userBddClt, passwdBddClt, nsBddClt):
     session.commit()
     return 0
 
-result = set_bddClient("nomTest", "WO", "user", "azerty", "test-ns")
-print("creation de la base test :" + str(result))
+#result = set_bddClient("newTest", "WO", "olv", "azerty", "test-ns")
+#print("creation de la base test :" + str(result))
+
+
+def get_listbddClient():
+    allBdd = session.query(Database)
+    bddClt=[]
+    allbddClt=[]
+    for bdd in allBdd:
+        bddClt.append(bdd.Id)
+        bddClt.append(bdd.Name)
+        bddClt.append(bdd.Owner)
+        bddClt.append(bdd.User)
+        bddClt.append(bdd.Namespace)
+
+        allbddClt.append(bddClt)    
+    return allbddClt
+
+testListBddClt=get_listbddClient()
+print(testListBddClt)
+
+def del_bddClient(id):
+    session.query(Database).filter(Database.Id==id).delete()
+    session.commit()
+print("suppression de la ligne " + str(id))
+del_bddClient(4)
