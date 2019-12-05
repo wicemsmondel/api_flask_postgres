@@ -14,7 +14,7 @@ $(document).ready(function () {
 });
 
 function showAll() {
-  $.get('http://0.0.0.0:5000/database', function (data) {
+  $.get('http://0.0.0.0:5000/data', function (data) {
     console.log("wwwwwwwwwwwwww")
     data = JSON.parse(data)
     console.log(data[0].Namespace)

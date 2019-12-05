@@ -1,5 +1,7 @@
 /api/.idea
 /api/apiloic.py
+/api/__pycache__
 .vscode/
 /env
 /flask
+.idea/

@@ -1,64 +1,84 @@
+from flask import *
+import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config import DATABASE_URI
-from models import Base
+from models import Base, Database
+
+app = Flask(__name__)
 
 engine = create_engine(DATABASE_URI)
-
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
 Base.metadata.create_all(engine)
 
-app = Flask(__name__)
-CORS(app)
 
-def fermeture(session):
-    session.flush()
+def set_bddClient(nameBddClt, ownerBddClt, userBddClt, passwdBddClt, nsBddClt):
+    BddClt = Database(
+        Name=nameBddClt,
+        Owner=ownerBddClt,
+        User=userBddClt,
+        Password=passwdBddClt,
+        Namespace=nsBddClt
+    )
+    session.add(BddClt)
     session.commit()
-    session.close()
+    return 0
 
-#_______________  ROUTES _______________
 
-@app.route('/v1/hello-world')
+result = set_bddClient("newTest", "WO", "wicem", "azerty", "wicem-ns")
+print("creation de la base test :" + str(result))
+
+
+def get_listbddClient():
+    allBdd = session.query(Database)
+    bddClt = []
+    allbddClt = []
+    for bdd in allBdd:
+        bddClt.append(bdd.Id)
+        bddClt.append(bdd.Name)
+        bddClt.append(bdd.Owner)
+        bddClt.append(bdd.User)
+        bddClt.append(bdd.Namespace)
+        allbddClt.append(bddClt)
+    return allbddClt
+
+
+testListBddClt = get_listbddClient()
+print(testListBddClt)
+
+
+def del_bddClient(id):
+    session.query(Database).filter(Database.Id == id).delete()
+    session.commit()
+
+
+print("suppression de la ligne" + str(id))
+del_bddClient(5)
+
+
+# _______________  ROUTES _______________
+
+@app.route('/helloworld')
 def hello_world():
     return 'Hello World!'
 
-#READ
-@app.route('/database', methods=['GET'])
-def parse_request():
-    # Votre fonction pour lire
-    session = Session()
-    data =readDatabase(session)
-    fermeture(session)
-    return json.dumps(data)
 
-#CREATE
-@app.route('/database', methods=['POST'])
-def parse_request2():
-    session = Session()
-    param = request.data.decode('utf-8')
-    result = createDatabase(session, param["Name"], param["Owner"], param["Namespace"], param["User"], param["Password"])
-    fermeture(session)
-    return str(result)
+@app.route('/data', methods=['GET'])
+def parse_request_get():
+    data = get_listbddClient()
+    return data
 
-@app.route('/database/update', methods=['POST'])
-def update_request():
-    session = Session()
-    param = request.data.decode('utf-8')
-    result = updateDatabase(session, param["Id"], param["Name"], param["Owner"], param["Namespace"], param["User"], param["Password"])
-    fermeture(session)
-    return str(result)
 
-#DELETE
-@app.route('/database/<numb>', methods=['DELETE'])
-def delete_request(numb):
-    # Votre fonction pour supprimer les data d'un fichier
-    session = Session()
-    result = deleteDatabase(session, numb)
-    fermeture(session)
-    return str(result)
+@app.route('/data', methods=['POST'])
+def parse_request_post():
+    data = request.data  
+    print(str(data))
+    result = set_bddClient(data)
+    return result
+
 
 if __name__ == '__main__':
     app.run("0.0.0.0")

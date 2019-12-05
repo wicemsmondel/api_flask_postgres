@@ -6,13 +6,13 @@ Base = declarative_base()
 
 class Database(Base):
     __tablename__ = 'database'
-    id = Column(Integer, primary_key=True)
-    Nom = Column(String)
-    owner = Column(String)
-    user = Column(String)
-    password = Column(String)
-    namespace = Column(String)
+    Id = Column(Integer, primary_key=True)
+    Name = Column(String)
+    Owner = Column(String)
+    User = Column(String)
+    Password = Column(String)
+    Namespace = Column(String)
 
     def __repr__(self):
-        return "<Database(Nom='{}', owner='{}', user='{}', password='{}', namespace='{}')>" \
-            .format(self.Nom, self.owner, self.user, self.password, self.namespace)
+        return "<Database(Name='{}', Owner='{}', User='{}', Password='{}', Namespace='{}')>" \
+            .format(self.Name, self.Owner, self.User, self.Password, self.Namespace)
