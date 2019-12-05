@@ -25,50 +25,53 @@
       <h1><span class="fa fa-database"></span> Database</h1>
 
       <p>Create or Delete database</p>
-      <label for="username">Adresse du Load Balancer:</label>
-      <input type="text" id="username" name="username">
+      <label for="load-balancer">Adresse du Load Balancer:</label>
+      <input type="text" id="Load-balancer" name="load-balancer" required>
     </div>
     <div>
-      <form id="createForm" action="" method="POST">
-        <label for="username">User:</label>
-        <input type="text" id="username" name="username">
-    </div>
-    <div>
-      <label for="username">Name:</label>
-      <input type="text" id="Name" name="username"> </div>
-    <div>
-      <label for="pass">Password:</label>
-      <input type="password" id="Password" name="password" required> </div>
-    <div>
-      <label for="username">Owner:</label>
-      <input type="text" id="Owner" name="username"> </div>
-    <div>
-      <label for="username">Namespace:</label>
-      <input type="text" id="Namespace" name="username">
-    </div>
-    <div><input type="submit" value="Create" id="create" class="btn btn-success" >
-    </div>
+      <form id="create-database" action="" method="POST" >
+        <label for="name">Name:</label><br>
+        <input type="text" id="Name" name="name"style="width: 100%" required>
+        <div>
+          <label for="owner">Owner:</label><br>
+          <input type="text" id="Owner" name="owner" style="width: 100%" required>
+        </div>
+        <div>
+          <label for="user">User:</label><br>
+          <input type="text" id="User" name="user"style="width: 100%" required>
+        </div>
+        <div>
+          <label for="password">Password:</label><br>
+          <input type="password" id="Password" name="password" style="width: 100%" required>
+        </div>
 
-    <div>
-      <h2>Database List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Owner</th>
-            <th>User</th>
-            <th>Password</th>
-            <th>Namespace</th>
-          </tr>
-        </thead>
-        <tbody id="list">
-        </tbody>
-      </table>
-      <input type="submit" value="Delete" id="delete" class="btn btn-danger">
-
+        <div>
+          <label for="namespace">Namespace:</label><br>
+          <input type="text" id="Namespace" name="namespace" style="width: 100%" required>
+        </div>
+        <div>
+          <br><input type="submit" value="Create" id="Create" class="btn btn-success">
+        </div>
+      </form>
+      <div>
+        <h2>Database List</h2>
+        <table id="exemple" class"display" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Owner</th>
+              <th>User</th>
+              <th>Password</th>
+              <th>Namespace</th>
+            </tr>
+          </thead>
+          <tbody id="list">
+          </tbody>
+        </table>
+        <br><input type="submit" value="Delete" id="delete" class="btn btn-danger">
+      </div>
     </div>
-  </div>
-
+    
 </body>
 <script src="script.js"></script>
 
