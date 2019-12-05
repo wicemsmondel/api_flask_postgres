@@ -1,52 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<!doctype html>
+<html>
 
-    <title>Form</title>
+<head>
+  <title>Form</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js">
+  </script>
+  <style>
+    body {
+      padding-top: 80px;
+      background-color: lightgrey;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1><span class="fa fa-database"></span> Database</h1>
+
+      <p>Create or Delete database</p>
+      <label for="username">Adresse du Load Balancer:</label>
+      <input type="text" id="username" name="username">
+    </div>
     <div>
-        <form id="createForm" action="" method="POST">
-       <label for="username">User:</label>
-             <input type="text" id="username" name="username">
-      </div>
-      <div>
-       <label for="username">Name:</label>
-       <input type="text" id="Name" name="username"> </div>
-      <div>
-       <label for="pass">Password:</label>
-       <input type="password" id="Password" name="password"required> </div>
-      <div>
-       <label for="username">Owner:</label>
-       <input type="text" id="Owner" name="username"> </div>
-      <div>
-       <label for="username">Namespace:</label>
-        <input type="text" id="Namespace" name="username">
-      </div>
-       <input type="submit" value="create" id="create">
-      
-      <section>
-        <h2>Database List</h2>
-          <table>
-            <thead>
+      <form id="createForm" action="" method="POST">
+        <label for="username">User:</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+      <label for="username">Name:</label>
+      <input type="text" id="Name" name="username"> </div>
+    <div>
+      <label for="pass">Password:</label>
+      <input type="password" id="Password" name="password" required> </div>
+    <div>
+      <label for="username">Owner:</label>
+      <input type="text" id="Owner" name="username"> </div>
+    <div>
+      <label for="username">Namespace:</label>
+      <input type="text" id="Namespace" name="username">
+    </div>
+    <div><input type="submit" value="Create" id="create" class="btn btn-success" >
+    </div>
+
+    <div>
+      <h2>Database List</h2>
+      <table>
+        <thead>
           <tr>
-              <th>Name</th>
-              <th>Owner</th>
-              <th>Namespace</th>
-              <th>User</th>
-              <th>Password</th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>User</th>
+            <th>Password</th>
+            <th>Namespace</th>
           </tr>
-            </thead>
-            <tbody id="liste">
-          </tbody>
-               <input type="submit" value="delete" id="delete">
-          </table>
-      </section>
+        </thead>
+        <tbody id="list">
+        </tbody>
+      </table>
+      <input type="submit" value="Delete" id="delete" class="btn btn-danger">
+
+    </div>
+  </div>
+
 </body>
 <script src="script.js"></script>
 
