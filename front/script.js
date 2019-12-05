@@ -17,8 +17,9 @@ function showAll() {
   $.get('http://0.0.0.0:5000/data', function (data) {
     console.log("wwwwwwwwwwwwww")
     data = JSON.parse(data)
-    console.log(data[0].Namespace)
+    console.log(data[1].Namespace)
     $("List").empty()
+    console.log(data)
     for (var i = 0; i < data.length; i++) {
       $("List").append("<tr>")
       $("List").append("<td>" + data[i].Name + "</td>")
