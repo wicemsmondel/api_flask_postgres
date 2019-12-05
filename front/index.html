@@ -3,13 +3,13 @@
 
 <head>
   <title>Form</title>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js">
   </script>
+  <script src="script.js"></script>
   <style>
     body {
       padding-top: 80px;
@@ -27,18 +27,19 @@
       <p>Create or Delete database</p>
       <label for="load-balancer">Adresse du Load Balancer:</label>
       <input type="text" id="Load-balancer" name="load-balancer" required>
+      <input class="btn btn-primary" type="submit" value="Connect" id="sApi" onclick="selectUrl()">
     </div>
     <div>
-      <form id="create-database" action="" method="POST" >
+      <form id="create-database" action="" method="POST">
         <label for="name">Name:</label><br>
-        <input type="text" id="Name" name="name"style="width: 100%" required>
+        <input type="text" id="Name" name="name" style="width: 100%" required>
         <div>
           <label for="owner">Owner:</label><br>
           <input type="text" id="Owner" name="owner" style="width: 100%" required>
         </div>
         <div>
           <label for="user">User:</label><br>
-          <input type="text" id="User" name="user"style="width: 100%" required>
+          <input type="text" id="User" name="user" style="width: 100%" required>
         </div>
         <div>
           <label for="password">Password:</label><br>
@@ -65,14 +66,14 @@
               <th>Namespace</th>
             </tr>
           </thead>
-          <tbody id="list">
+          <tbody id="List">
           </tbody>
         </table>
         <br><input type="submit" value="Delete" id="delete" class="btn btn-danger">
       </div>
     </div>
-    
+
 </body>
-<script src="script.js"></script>
+
 
 </html>
