@@ -14,5 +14,5 @@ class Database(Base):
     Namespace = Column(String)
 
     def __repr__(self):
-        return "<Database(Name='{}', Owner='{}', User='{}', Password='{}', Namespace='{}')>" \
-            .format(self.Name, self.Owner, self.User, self.Password, self.Namespace)
+        return "<Database(Id='{}',Name='{}', Owner='{}', User='{}', Password='{}', Namespace='{}')>" \
+            .format(self.Id, self.Name, self.Owner, self.User, self.Password, self.Namespace)

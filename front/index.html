@@ -4,10 +4,9 @@
 <head>
   <title>Form</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js">
+
   </script>
   <script src="script.js"></script>
   <style>
@@ -29,48 +28,46 @@
       <input type="text" id="Load-balancer" name="load-balancer" required>
       <input class="btn btn-primary" type="submit" value="Connect" id="sApi" onclick="connectLB()">
     </div>
-    <div>
-      <form id="create-database" action="" method="POST">
+
+    <!-- POST -->
+    <div id="create-database">
+      <form method="POST">
         <label for="name">Name:</label><br>
         <input type="text" id="Name" name="name" style="width: 100%" required>
-        <div>
-          <label for="owner">Owner:</label><br>
-          <input type="text" id="Owner" name="owner" style="width: 100%" required>
-        </div>
-        <div>
-          <label for="user">User:</label><br>
-          <input type="text" id="User" name="user" style="width: 100%" required>
-        </div>
-        <div>
-          <label for="password">Password:</label><br>
-          <input type="password" id="Password" name="password" style="width: 100%" required>
-        </div>
+
+        <label for="owner">Owner:</label><br>
+        <input type="text" id="Owner" name="owner" style="width: 100%" required>
+
+        <label for="user">User:</label><br>
+        <input type="text" id="User" name="user" style="width: 100%" required>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="Password" name="password" style="width: 100%" required>
+
+        <label for="namespace">Namespace:</label><br>
+        <input type="text" id="Namespace" name="namespace" style="width: 100%" required>
 
         <div>
-          <label for="namespace">Namespace:</label><br>
-          <input type="text" id="Namespace" name="namespace" style="width: 100%" required>
-        </div>
-        <div>
-          <br><input type="submit" value="Create" id="Create" class="btn btn-success">
+          <br><input type="submit" name="post-data" value="Create" id="Create" class="btn btn-success">
         </div>
       </form>
-      <div>
-        <h2>Database List</h2>
-        <table id="exemple" class"display" style="width: 100%">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Owner</th>
-              <th>User</th>
-              <th>Password</th>
-              <th>Namespace</th>
-            </tr>
-          </thead>
-          <tbody id="List">
-          </tbody>
-        </table>
-        <br><input type="submit" value="Delete" id="delete" class="btn btn-danger">
-      </div>
+    </div>
+    <div>
+      <h2 class="text-center">Database List</h2>
+      <table id="exemple" class="table table-bordered table-dark" style="width: 100%">
+        <thead class="text-center">
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>User</th>
+            <th>Password</th>
+            <th>Namespace</th>
+          </tr>
+        </thead>
+        <tbody id="List">
+        </tbody>
+      </table>
     </div>
 
 </body>
