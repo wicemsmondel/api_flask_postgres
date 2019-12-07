@@ -3,66 +3,65 @@
 
 <head>
   <title>Form</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  </script>
+  <script src="jquery.min.js"></script>
+  <link rel="stylesheet" href="bootstrap.min.css">
   <script src="script.js"></script>
   <style>
     body {
       padding-top: 20px;
-      background-color: lightgrey;
+      background-color: gainsboro;
+      font-family: 'calibri';
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <div style="background:whitesmoke !important" class="jumbotron text-center" >
-      <h1><span class="fa fa-database"></span> PostgreSQL Database</h1><br>
-      <input type="text" id="Api"  class="form-control" id="inputPassword2" name="Api" placeholder="API address" required><br>
+    <div style="background: whitesmoke !important" class="jumbotron  text-center">
+      <h1 class="display-"> <img src="postgresql_logo.png" width="50" alt="postgresql_logo">PostgreSQL Database</h1><br>
+      
+      
+      <input type="text" id="Api" class="form-control" id="inputPassword2" name="Api" placeholder="API address"
+        required><br>
       <input class="btn btn-primary" type="submit" value="Connect" id="sApi" onclick="connectAPI()">
     </div>
 
     <!-- POST -->
-    <h3 class="text-center">Create database</h2><br>
-
-    <form id="create-database"  method="POST">
-      <input type="text" id="Name" class="form-control" name="Name" placeholder="Enter database name" style="width: 100%" required><br>
-
-      <input type="text" id="Owner" class="form-control" name="Owner" placeholder="Enter owner name" style="width: 100%" required><br>
-
-      <input type="text" id="User" class="form-control" name="User" placeholder="Enter username" style="width: 100%" required><br>
-
-      <input type="password" id="Password" class="form-control" name="Password" placeholder="Enter password" style="width: 100%" required><br>
-
-      <input type="text" id="Namespace" class="form-control" name="Namespace" placeholder="Enter namespace" style="width: 100%" required><br>
-
-      <div>
-        <br><input id="post-data" class="btn btn-success" type="button" value="Create">
+    <div class="container">
+      <div class="col-xl-6 offset-xl-3">
+        <div class="text-center">
+          <h3>Create database</h2><br>
+            <form id="create-database" method="POST">
+              <input type="text" id="Name" class="form-control" name="Name" placeholder="Name" required><br>
+              <input type="text" id="Owner" class="form-control" name="Owner" placeholder="Owner" required><br>
+              <input type="text" id="User" class="form-control" name="User" placeholder="User" required><br>
+              <input type="password" id="Password" class="form-control" name="Password" placeholder="Password" required><br>
+              <input type="text" id="Namespace" class="form-control" name="Namespace" placeholder="Namespace" required><br>
+              <input id="post-data" class="btn btn-success" type="button" value="Create">
+            </form>
+        </div>
       </div>
-    </form>
+    </div>
 
     <!-- GET -->
 
     <div>
-      <h3 class="text-center">Database list</h2><br>
-      <table id="exemple" class="table table-bordered" style="background-color: whitesmoke">
-        <thead class="thead-dark text-center">
-          <tr class="text-center">
-            <th>Id</th>
-            <th>Name</th>
-            <th>Owner</th>
-            <th>User</th>
-            <th>Password</th>
-            <th>Namespace</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="List">
-        </tbody>
-      </table>
+      <br><h3 class="text-center">Database list</h2><br>
+        <table id="exemple" class="table table-bordered" style="background-color: whitesmoke">
+          <thead class="thead-dark text-center">
+            <tr class="text-center">
+              <th>Id</th>
+              <th>Name</th>
+              <th>Owner</th>
+              <th>User</th>
+              <th>Password</th>
+              <th>Namespace</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="List">
+          </tbody>
+        </table>
     </div>
   </div>
 </body>
