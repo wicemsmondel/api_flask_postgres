@@ -1,8 +1,7 @@
 from flask import *
 from flask import request
 from flask_cors import CORS
-import json
-import jsonify
+import jsonify, json
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -18,98 +17,96 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-# _______________  CREATE DATABASE _______________
-def create_db(name, owner, user, password, namespace):
-    db = Database(
-        Name=name,
-        Owner=owner,
-        User=user,
-        Password=password,
-        Namespace=namespace
-    )
-    session.add(db)
+def hibernate(session):
+    session.flush()
     session.commit()
-    # return 0
-
-# result = create_db("fridayTest3", "WO", "Wicem", "psw", "wo-ns")
+    session.close()
 
 
-# _______________  GET DATABASE _______________
+# _______________  FUNCTIONS _______________
+
+##GET
 def get_data(session):
     result = session.query(Database).all()
     data = []
     for i in result:
         get_json = {
-            "Id": i.Id,
-            "Name": i.Name,
-            "Owner": i.Owner,
-            "Namespace": i.Namespace,
-            "User": i.User,
-            "Password": i.Password
-        }
+            "Id": i.Id, 
+            "Name": i.Name, 
+            "Owner": i.Owner, 
+            "User": i.User, 
+            "Password": i.Password, 
+            "Namespace": i.Namespace
+            }
         data.append(get_json)
     return (data)
 
-# _______________  POST DATABASE _______________
 
-
-def post_data(data):
+##POST
+def putData(data):
     sqldata = json.loads(data)
-    print(data)
     print(sqldata)
     tableEntry = Database(
-        Id=int(sqldata["Id"]),
-        Name=sqldata["Name"],
-        Owner=sqldata["Owner"],
-        User=sqldata["User"],
-        Password=sqldata["Password"],
-        Namespace=sqldata["Namespace"],
-    )
+                Name=sqldata["Name"],
+                Owner=sqldata["Owner"],
+                User=sqldata["User"],
+                Password=sqldata["Password"],
+                Namespace=sqldata["Namespace"],
+            )
     session.add(tableEntry)
-    session.commit()
+    hibernate(session)
 
 
-# _______________  DELETE DATABASE _______________
-
-def delData(numb):
+##DELETE
+def delete_data(numb):
     query = session.query(Database).filter_by(Id=numb)
     session.delete(query.one())
-    session.commit()
-    return "TRUE"
+    hibernate(session)
+    return "Done"
+
+
 
 # _______________  ROUTES _______________
 
-# TEST CONNECTION
+##HOME
 @app.route('/')
 def hello_world():
     return 'Hello World!'
 
-# READ
+
+##GET
 @app.route('/data', methods=['GET'])
 def parse_request_get():
-    session = Session()
     data = get_data(session)
+    hibernate(session)
     return json.dumps(data)
 
-# CREATE
+
+##POST
 @app.route('/data', methods=['POST'])
-def parse_request_post():
-    data = request.data
+def parse_reqpost():
+    data = request.data 
     print(request.data)
     try:
-        post_data(data)
+        putData(data)
         success = 'True'
     except:
         print('failed')
         sys.exit(1)
     return success
 
-# DELETE
+
+##DELETE
 @app.route('/data/<numb>', methods=['DELETE'])
-def api_article(numb):
-    delData(numb)
-    return 'Vous avez supprimer ' + numb
+def parse_request_delete(numb):
+    erased = delete_data(numb) 
+    hibernate(session)
+    return json.dumps(erased)
 
 
+##RUN API
 if __name__ == '__main__':
-    app.run('0.0.0.0')
+    app.run(debug=True)
+
+
+

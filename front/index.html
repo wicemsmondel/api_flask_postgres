@@ -19,10 +19,8 @@
 
 <body>
   <div class="container">
-
     <div class="jumbotron text-center">
       <h1><span class="fa fa-database"></span> Database</h1>
-
       <p>Create or Delete database</p>
       <label for="load-balancer">Adresse du Load Balancer:</label>
       <input type="text" id="Load-balancer" name="load-balancer" required>
@@ -30,32 +28,32 @@
     </div>
 
     <!-- POST -->
-    <div id="create-database">
-      <form method="POST">
-        <label for="name">Name:</label><br>
-        <input type="text" id="Name" name="name" style="width: 100%" required>
 
-        <label for="owner">Owner:</label><br>
-        <input type="text" id="Owner" name="owner" style="width: 100%" required>
+    <form id="create-database" method="POST">
+      <label for="name">Name:</label><br>
+      <input type="text" id="Name" name="Name" style="width: 100%" required>
 
-        <label for="user">User:</label><br>
-        <input type="text" id="User" name="user" style="width: 100%" required>
+      <label for="owner">Owner:</label><br>
+      <input type="text" id="Owner" name="Owner" style="width: 100%" required>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="Password" name="password" style="width: 100%" required>
+      <label for="user">User:</label><br>
+      <input type="text" id="User" name="User" style="width: 100%" required>
 
-        <label for="namespace">Namespace:</label><br>
-        <input type="text" id="Namespace" name="namespace" style="width: 100%" required>
+      <label for="password">Password:</label><br>
+      <input type="password" id="Password" name="Password" style="width: 100%" required>
 
-        <div>
-          <br><input type="submit" name="post-data" value="Create" id="Create" class="btn btn-success">
-        </div>
-      </form>
-    </div>
+      <label for="namespace">Namespace:</label><br>
+      <input type="text" id="Namespace" name="Namespace" style="width: 100%" required>
+
+      <div>
+        <br><input id="post-data" class="btn btn-success" type="button"value="Submit" >
+      </div>
+    </form>
+
     <div>
-      <h2 class="text-center">Database List</h2>
-      <table id="exemple" class="table table-bordered table-dark" style="width: 100%">
-        <thead class="text-center">
+      <h2 class="text-center">Database List</h2><br>
+      <table id="exemple" class="table table-hover table-dark">
+        <thead>
           <tr>
             <th>Id</th>
             <th>Name</th>
@@ -63,14 +61,14 @@
             <th>User</th>
             <th>Password</th>
             <th>Namespace</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody id="List">
         </tbody>
       </table>
     </div>
-
+  </div>
 </body>
-
 
 </html>
