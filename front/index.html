@@ -11,7 +11,7 @@
   <script src="script.js"></script>
   <style>
     body {
-      padding-top: 80px;
+      padding-top: 20px;
       background-color: lightgrey;
     }
   </style>
@@ -19,42 +19,38 @@
 
 <body>
   <div class="container">
-    <div class="jumbotron text-center">
-      <h1><span class="fa fa-database"></span> Database</h1>
-      <p>Create or Delete database</p>
-      <label for="load-balancer">Adresse du Load Balancer:</label>
-      <input type="text" id="Load-balancer" name="load-balancer" required>
-      <input class="btn btn-primary" type="submit" value="Connect" id="sApi" onclick="connectLB()">
+    <div style="background:whitesmoke !important" class="jumbotron text-center" >
+      <h1><span class="fa fa-database"></span> PostgreSQL Database</h1><br>
+      <input type="text" id="Api"  class="form-control" id="inputPassword2" name="Api" placeholder="API address" required><br>
+      <input class="btn btn-primary" type="submit" value="Connect" id="sApi" onclick="connectAPI()">
     </div>
 
     <!-- POST -->
+    <h3 class="text-center">Create database</h2><br>
 
-    <form id="create-database" method="POST">
-      <label for="name">Name:</label><br>
-      <input type="text" id="Name" name="Name" style="width: 100%" required>
+    <form id="create-database"  method="POST">
+      <input type="text" id="Name" class="form-control" name="Name" placeholder="Enter database name" style="width: 100%" required><br>
 
-      <label for="owner">Owner:</label><br>
-      <input type="text" id="Owner" name="Owner" style="width: 100%" required>
+      <input type="text" id="Owner" class="form-control" name="Owner" placeholder="Enter owner name" style="width: 100%" required><br>
 
-      <label for="user">User:</label><br>
-      <input type="text" id="User" name="User" style="width: 100%" required>
+      <input type="text" id="User" class="form-control" name="User" placeholder="Enter username" style="width: 100%" required><br>
 
-      <label for="password">Password:</label><br>
-      <input type="password" id="Password" name="Password" style="width: 100%" required>
+      <input type="password" id="Password" class="form-control" name="Password" placeholder="Enter password" style="width: 100%" required><br>
 
-      <label for="namespace">Namespace:</label><br>
-      <input type="text" id="Namespace" name="Namespace" style="width: 100%" required>
+      <input type="text" id="Namespace" class="form-control" name="Namespace" placeholder="Enter namespace" style="width: 100%" required><br>
 
       <div>
-        <br><input id="post-data" class="btn btn-success" type="button"value="Submit" >
+        <br><input id="post-data" class="btn btn-success" type="button" value="Create">
       </div>
     </form>
 
+    <!-- GET -->
+
     <div>
-      <h2 class="text-center">Database List</h2><br>
-      <table id="exemple" class="table table-hover table-dark">
-        <thead>
-          <tr>
+      <h3 class="text-center">Database list</h2><br>
+      <table id="exemple" class="table table-bordered" style="background-color: whitesmoke">
+        <thead class="thead-dark text-center">
+          <tr class="text-center">
             <th>Id</th>
             <th>Name</th>
             <th>Owner</th>

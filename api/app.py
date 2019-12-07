@@ -1,8 +1,7 @@
 from flask import *
 from flask import request
 from flask_cors import CORS
-import jsonify, json
-import sys
+import sys, jsonify, json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config import DATABASE_URI
@@ -43,7 +42,7 @@ def get_data(session):
 
 
 ##POST
-def putData(data):
+def post_data(data):
     sqldata = json.loads(data)
     print(sqldata)
     tableEntry = Database(
@@ -84,11 +83,11 @@ def parse_request_get():
 
 ##POST
 @app.route('/data', methods=['POST'])
-def parse_reqpost():
+def parse_request_post():
     data = request.data 
     print(request.data)
     try:
-        putData(data)
+        post_data(data)
         success = 'True'
     except:
         print('failed')

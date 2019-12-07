@@ -39,29 +39,11 @@ function postPutain() {
       url: "http://localhost:5000/data",
       data: JSON.stringify(formData),
       dataType: "json",
-      contentType : "application/json"
+      contentType: "application/json"
     });
-    setTimeout(function(){location.reload()}, 600);
+    setTimeout(function () { location.reload() }, 600);
   });
 };
-
-// function postPutain() {
-//   $('#post-data').click(function () {
-//     var formData = {};
-//     JSON.stringify($("#create-database").serializeArray().map(function (x) { formData[x.name] = x.value; }));
-//     console.log(formData);
-//     $.ajax({
-//       type: "POST",
-//       url: "http://localhost:5000/data",
-//       data: formData,      
-//       dataType: 'json',
-//       contentType: 'application/json',
-//       timeout: 3000,
-//       success: function(data) {
-//         alert(data); }
-//     });
-//   });
-// };
 
 
 //DELETE
@@ -75,6 +57,6 @@ function deleteDB(ctl) {
     url: durl
   });
   $(ctl).parents("tr").remove();
-  setTimeout(function(){location.reload()}, 600);
+  setTimeout(function () { location.reload() }, 600);
 };
 
