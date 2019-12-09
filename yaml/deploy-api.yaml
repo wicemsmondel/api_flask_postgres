@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-deployment
   labels:
-    app: appache-api
+    app: flask-api
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
         role: lb-api
     spec:
       containers:
-      - name: cont-appache-api
+      - name: cont-flask-api
         image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-api:1.0.0
         env:
           - name: POST_USER
