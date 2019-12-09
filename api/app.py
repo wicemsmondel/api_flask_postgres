@@ -1,7 +1,7 @@
 from flask import *
 from flask import request
 from flask_cors import CORS
-import sys, jsonify, json
+import sys, json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config import DATABASE_URI
@@ -105,7 +105,7 @@ def parse_request_delete(numb):
 
 ##RUN API
 if __name__ == '__main__':
-    app.run('0.0.0.0')
+    app.run(debug=True)
 
 
 
