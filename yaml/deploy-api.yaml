@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: appache-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: lb-api
+  template:
+    metadata:
+      labels:
+        role: lb-api
+    spec:
+      containers:
+      - name: cont-appache-api
+        image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-api:1.0.0
+        env:
+          - name: POST_USER
+            valueFrom:
+              secretKeyRef:
+                # The secret containing the value you want to assign to SPECIAL_LEVEL_KEY
+                name: postgres-login
+                # Specify the key associated with the value
+                key: special.postuser
+          - name: POST_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: special.postpassword
+          - name: URI_POSTGRES
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: special.uripostgres
+          - name: POST_PORT
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: special.postport
+          - name: DBASE
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: special.dbase
+        ports:
+          - name: web
+            containerPort: 5000
+            protocol: TCP

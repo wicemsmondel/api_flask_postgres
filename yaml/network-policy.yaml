@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: api-network-policy
+  namespace: wo-ns
+spec:
+  podSelector:
+    matchLabels:
+      role: lb-api
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - {}
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          namespace: kube-system
+    - namespaceSelector:
+        matchLabels:
+          namespace: postgres
+    - podSelector:
+        matchLabels:
+          app: postgresql
