@@ -74,7 +74,7 @@ def hello_world():
 
 
 ##GET
-@app.route('/data', methods=['GET'])
+@app.route('/wo-database', methods=['GET'])
 def parse_request_get():
     data = get_data(session)
     hibernate(session)
@@ -82,7 +82,7 @@ def parse_request_get():
 
 
 ##POST
-@app.route('/data', methods=['POST'])
+@app.route('/wo-database', methods=['POST'])
 def parse_request_post():
     data = request.data 
     print(request.data)
@@ -96,7 +96,7 @@ def parse_request_post():
 
 
 ##DELETE
-@app.route('/data/<numb>', methods=['DELETE'])
+@app.route('/wo-database/<numb>', methods=['DELETE'])
 def parse_request_delete(numb):
     erased = delete_data(numb) 
     hibernate(session)
@@ -105,7 +105,7 @@ def parse_request_delete(numb):
 
 ##RUN API
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run('0.0.0.0')
 
 
 
