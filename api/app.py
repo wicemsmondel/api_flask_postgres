@@ -1,7 +1,7 @@
 from flask import *
 from flask import request
 from flask_cors import CORS
-import sys, jsonify, json
+import sys, json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config import DATABASE_URI
@@ -10,15 +10,15 @@ from models import Base, Database
 app = Flask(__name__)
 CORS(app)
 
-engine = create_engine(DATABASE_URI)
+engine = create_engine(DATABASE_URI, echo=True)
 Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 session = Session()
 
 
 def hibernate(session):
-    session.flush()
     session.commit()
+    session.flush()
     session.close()
 
 
@@ -53,7 +53,7 @@ def post_data(data):
                 Namespace=sqldata["Namespace"],
             )
     session.add(tableEntry)
-    hibernate(session)
+    # hibernate(session)
 
 
 ##DELETE
@@ -61,7 +61,7 @@ def delete_data(numb):
     query = session.query(Database).filter_by(Id=numb)
     session.delete(query.one())
     hibernate(session)
-    return "Done"
+    return ("Done")
 
 
 
@@ -76,9 +76,12 @@ def hello_world():
 ##GET
 @app.route('/data', methods=['GET'])
 def parse_request_get():
-    data = get_data(session)
-    hibernate(session)
-    return json.dumps(data)
+        try:
+            data = get_data(session)
+            hibernate(session)
+        except:
+            session.rollback()
+        return json.dumps(data)
 
 
 ##POST
@@ -88,18 +91,22 @@ def parse_request_post():
     print(request.data)
     try:
         post_data(data)
-        success = 'True'
+        session.commit()
     except:
-        print('failed')
-        sys.exit(1)
-    return success
+        session.rollback()
+        raise
+    return data
+    
 
 
 ##DELETE
 @app.route('/data/<numb>', methods=['DELETE'])
 def parse_request_delete(numb):
-    erased = delete_data(numb) 
-    hibernate(session)
+    try:
+        erased = delete_data(numb)
+        session.delete()
+    except:
+        session.flush
     return json.dumps(erased)
 
 

@@ -41,7 +41,7 @@ function postPutain() {
       dataType: "json",
       contentType: "application/json"
     });
-    setTimeout(function () { location.reload() }, 600);
+    // setTimeout(function () { location.reload() }, 600);
   });
 };
 
