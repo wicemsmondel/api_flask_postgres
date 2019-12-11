@@ -22,7 +22,7 @@ function showAll() {
       $('#List').append("<td>" + data.Namespace + "</td>")
       $('#List').append("<td>" + "<button  id='deleterow' iddb=" + data.Id + " type='button' " + "onclick='deleteDB(this)'" + "class='btn btn-danger'>Delete</button></td>")
       // $('#List').append("</tr>")
-    });  
+    });
   });
 }
 
@@ -40,9 +40,10 @@ function postPutain() {
       data: JSON.stringify(formData),
       dataType: "json",
       contentType: "application/json"
-    });
-    setTimeout(function () { location.reload() }, 600);
-  });
+    }).done(function (data) {
+      showAll();
+    })
+  })
 };
 
 
@@ -56,8 +57,9 @@ function deleteDB(ctl) {
   $.ajax({
     type: 'DELETE',
     url: durl
+  }).done(function (data) {
+    showAll();
   });
-  $(ctl).parents("tr").remove();
-  setTimeout(function () { location.reload() }, 600);
 };
+
 

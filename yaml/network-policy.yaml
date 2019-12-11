@@ -1,25 +1,45 @@
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
-  name: api-network-policy
+  name: wo-ns-policy
   namespace: wo-ns
 spec:
   podSelector:
     matchLabels:
       role: lb-api
+    matchLabels:
+      role: lb-front
   policyTypes:
   - Ingress
   - Egress
   ingress:
   - {}
+  # from:
+  #   - namespaceSelector:
+  #       matchLabels:
+  #         namespace: wo-ns
+  #   - podSelector:
+  #       matchLabels:
+  #         role: lb-front
+
   egress:
   - to:
+    - namespaceSelector:
+        matchLabels:
+          namespace: wo-ns
     - namespaceSelector:
         matchLabels:
           namespace: kube-system
     - namespaceSelector:
         matchLabels:
-          namespace: postgres
+          namespace: postgres    
     - podSelector:
         matchLabels:
           app: postgresql
+    # - podSelector:
+    #     matchLabels:
+    #       role: lb-api
+    - podSelector:
+        matchLabels:
+          role: lb-front
+    
