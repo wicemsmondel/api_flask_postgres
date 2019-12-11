@@ -5,29 +5,29 @@ $(document).ready(function () {
 });
 
 
-////////////////////  GET   ////////////////////  
+////////////////////  GET  ////////////////////  
 
 function showAll() {
-  $.get('http://localhost:5000/data', function (data) {
+  $.get('http://a3e47cd6c1a6611ea9df302af6eaa18b-1254097968.eu-west-1.elb.amazonaws.com/data', function (data) {
     data = JSON.parse(data)
     $('#List').empty()
     console.log(data)
-    for (var i = 0; i < data.length; i++) {
+    data.forEach(data => {
       $('#List').append("<tr>")
-      $('#List').append("<th>" + "#" + data[i].Id + "</th>")
-      $('#List').append("<td>" + data[i].Name + "</td>")
-      $('#List').append("<td>" + data[i].Owner + "</td>")
-      $('#List').append("<td>" + data[i].User + "</td>")
-      $('#List').append("<td>" + data[i].Password + "</td>")
-      $('#List').append("<td>" + data[i].Namespace + "</td>")
-      $('#List').append("<td>" + "<button  id='deleterow' iddb=" + data[i].Id + " type='button' " + "onclick='deleteDB(this)'" + "class='btn btn-danger'>Delete</button></td></tr>")
-      $('#List').append("</tr>")
-    }
+      $('#List').append("<th>" + "#" + data.Id + "</th>")
+      $('#List').append("<td>" + data.Name + "</td>")
+      $('#List').append("<td>" + data.Owner + "</td>")
+      $('#List').append("<td>" + data.User + "</td>")
+      $('#List').append("<td>" + data.Password + "</td>")
+      $('#List').append("<td>" + data.Namespace + "</td>")
+      $('#List').append("<td>" + "<button  id='deleterow' iddb=" + data.Id + " type='button' " + "onclick='deleteDB(this)'" + "class='btn btn-danger'>Delete</button></td>")
+      // $('#List').append("</tr>")
+    });
   });
 }
 
 
-////////////////////  POST   ////////////////////  
+////////////////////  POST  ////////////////////  
 
 function postPutain() {
   $('#post-data').click(function () {
@@ -36,27 +36,30 @@ function postPutain() {
     console.log(formData)
     $.ajax({
       type: "POST",
-      url: "http://localhost:5000/data",
+      url: "http://a3e47cd6c1a6611ea9df302af6eaa18b-1254097968.eu-west-1.elb.amazonaws.com/data",
       data: JSON.stringify(formData),
       dataType: "json",
       contentType: "application/json"
-    });
-    // setTimeout(function () { location.reload() }, 600);
-  });
+    }).done(function (data) {
+      showAll();
+    })
+  })
 };
 
 
-//DELETE
+////////////////////  DELETE ////////////////////  
+
 function deleteDB(ctl) {
   console.log($(ctl).attr('iddb'))
   var Id = $(ctl).attr('iddb')
-  var durl = "http://localhost:5000/data/" + Id
+  var durl = "http://a3e47cd6c1a6611ea9df302af6eaa18b-1254097968.eu-west-1.elb.amazonaws.com/data/" + Id
   console.log(durl)
   $.ajax({
     type: 'DELETE',
     url: durl
+  }).done(function (data) {
+    showAll();
   });
-  $(ctl).parents("tr").remove();
-  setTimeout(function () { location.reload() }, 600);
 };
+
 

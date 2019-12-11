@@ -81,7 +81,7 @@ def parse_request_get():
             hibernate(session)
         except:
             session.rollback()
-        return json.dumps(data)
+        return str(json.dumps(data))
 
 
 ##POST
@@ -112,7 +112,5 @@ def parse_request_delete(numb):
 
 ##RUN API
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
+    app.run('0.0.0.0')
 

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: flask-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: lb-api
+  template:
+    metadata:
+      labels:
+        role: lb-api
+    spec:
+      containers:
+      - name: cont-flask-api
+        image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-api:1.1.2
+        env:
+          - name: USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: User
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: Password
+          - name: URI
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: Uri
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: Port
+          - name: DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: postgres-login
+                key: Database
+        ports:
+          - name: web
+            containerPort: 5000
+            protocol: TCP

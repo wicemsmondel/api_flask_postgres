@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+  namespace: wo-ns
+  labels:
+    app: appache-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: lb-front
+  template:
+    metadata:
+      labels:
+        role: lb-front
+    spec:
+      containers:
+      - name: cont-appache-front
+        image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-front:1.0.3
+        ports:
+        - containerPort: 80
+          name: web
+          protocol: TCP
