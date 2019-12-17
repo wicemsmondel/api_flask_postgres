@@ -1,0 +1,6 @@
+apiVersion: v2
+name: wicemchart
+description: A Helm chart for Wicem front-end & back-end
+
+version: 0.6.2
+appVersion: 1.16.0

@@ -1,0 +1,13 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:  
+  name: {{ .Chart.Name }}-{{ .Release.Name }}-hpa-front
+  namespace: wicem-ns  
+spec:
+  maxReplicas: {{ .Values.spechpa.max }}
+  minReplicas: {{ .Values.spechpa.min}}
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: {{ .Chart.Name }}-{{ .Release.Name }}-front
+  targetCPUUtilizationPercentage: {{ .Values.spechpa.targetCPU }}

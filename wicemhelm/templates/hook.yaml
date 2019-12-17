@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-hook
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    metadata:
+      name: {{ .Release.Name }}-hook-hook
+      
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        image: "435606335423.dkr.ecr.eu-west-1.amazonaws.com/busybox:1.0.1"
+        command: ["/bin/sleep","{{ default "10" }}"]
+        command: ["sh", "-c",  "wget http://{{ .Chart.Name }}-{{ .Release.Name }}-svc-back.wicem-ns.svc.cluster.local/data"]

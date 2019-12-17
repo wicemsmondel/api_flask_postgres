@@ -16,7 +16,14 @@ spec:
     spec:
       containers:
       - name: cont-flask-api
-        image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-api:1.1.2
+        image: 435606335423.dkr.ecr.eu-west-1.amazonaws.com/wo-api:1.1.3
+        resources:
+          limits:
+            cpu: "700m"
+            memory: "200Mi"
+          requests:
+            cpu: "700m"
+            memory: "200Mi"
         env:
           - name: USER
             valueFrom:

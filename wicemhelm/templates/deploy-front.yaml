@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-{{ .Release.Name }}-front
+  labels:
+    app: front-wicem
+spec:
+  replicas: {{ .Values.specdeploy.replicas }}
+  selector:
+    matchLabels:
+      role: {{ .Values.front.labels.role }}
+{{ .Values.front.labels.else.key | nindent 6 }}: {{ .Values.front.labels.else.value }}
+  template:
+    metadata:
+      labels:
+        role: {{ .Values.front.labels.role }}
+{{ .Values.front.labels.else.key | nindent 8 }}: {{ .Values.front.labels.else.value }}
+    spec:
+      containers:
+      - name: pod-front
+        image: {{ .Values.front.image.urlecr }}/{{ .Values.front.image.repo }}:{{ .Values.front.image.tag }}
+        # resources:
+        #   limits:
+        #     cpu: {{ .Values.resources.limits.cpu }}
+        #     memory: {{ .Values.resources.limits.memory }}
+        #   requests: 
+        #     cpu: {{ .Values.resources.requests.cpu }}
+        #     memory: {{ .Values.resources.requests.memory }}
+        ports:
+        - containerPort: 80
+          name: web
+          protocol: TCP

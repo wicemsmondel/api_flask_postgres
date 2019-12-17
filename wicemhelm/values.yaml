@@ -1,0 +1,50 @@
+specdeploy:
+  replicas: 1
+
+spechpa:
+  max: 3
+  min: 1
+  scale:
+  targetCPU: 5
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources:
+  limits:
+    cpu: "700m"
+    memory: "200Mi"
+  requests:
+    cpu: "100m"
+    memory: "123Mi"
+
+front:
+  labels:
+    role: toto
+    else:
+      key: tata
+      value: patate
+  image:
+    repo: wo-front
+    urlecr: 435606335423.dkr.ecr.eu-west-1.amazonaws.com
+    tag: 1.0.4
+
+back:
+  labels:
+    role: foo
+    else:
+      key: bar
+      value: potatoe
+  image:
+    repo: wo-api
+    urlecr: 435606335423.dkr.ecr.eu-west-1.amazonaws.com
+    tag: 1.1.4
+
+secrets:
+  data:
+    user: bXl1c2VyCg==
+    password: bXlwYXNzCg==
+    uri: cG9zdGdyZXNxbC5wb3N0Z3Jlcy5zdmMuY2x1c3Rlci5sb2NhbAo=
+    port: NTQzMgo=
+    database: d2ljZW0tZGIK

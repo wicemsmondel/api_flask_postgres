@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-{{ .Release.Name }}-back
+  labels:
+    app: back-wicem
+spec:
+  replicas: {{ .Values.specdeploy.replicas }}
+  selector:
+    matchLabels:
+      role: {{ .Values.back.labels.role }}
+{{ .Values.back.labels.else.key | nindent 6 }}: {{ .Values.back.labels.else.value }}
+  template:
+    metadata:
+      labels:
+        role: {{ .Values.back.labels.role }}
+{{ .Values.back.labels.else.key | nindent 8 }}: {{ .Values.back.labels.else.value }}
+    spec:
+      containers:
+      - name: pod-back
+        image: {{ .Values.back.image.urlecr }}/{{ .Values.back.image.repo }}:{{ .Values.back.image.tag }}
+        # resources:
+        #   limits:
+        #     cpu: {{ .Values.resources.limits.cpu }}
+        #     memory: {{ .Values.resources.limits.memory }}
+        #   requests: 
+        #     cpu: {{ .Values.resources.requests.cpu }}
+        #     memory: {{ .Values.resources.requests.memory }}
+        env:
+          - name: USER
+            valueFrom:
+              secretKeyRef:
+                # The secret containing the value you want to assign to SPECIAL_LEVEL_KEY
+                name: {{ .Chart.Name }}-{{ .Release.Name }}-postgres-login
+                # Specify the key associated with the value
+                key: user
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-{{ .Release.Name }}-postgres-login
+                key: password
+          - name: URI
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-{{ .Release.Name }}-postgres-login
+                key: uri
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-{{ .Release.Name }}-postgres-login
+                key: port
+          - name: DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-{{ .Release.Name }}-postgres-login
+                key: database
+        ports:
+        - containerPort: 5000
+          name: web          
+          protocol: TCP
+        
+          

@@ -8,7 +8,7 @@ $(document).ready(function () {
 ////////////////////  GET  ////////////////////  
 
 function showAll() {
-  $.get('http://a3e47cd6c1a6611ea9df302af6eaa18b-1254097968.eu-west-1.elb.amazonaws.com/data', function (data) {
+  $.get('http://afd91b9a720d511ea9df302af6eaa18b-378851648.eu-west-1.elb.amazonaws.com/data', function (data) {
     data = JSON.parse(data)
     $('#List').empty()
     console.log(data)
@@ -36,7 +36,7 @@ function postPutain() {
     console.log(formData)
     $.ajax({
       type: "POST",
-      url: "http://a3e47cd6c1a6611ea9df302af6eaa18b-1254097968.eu-west-1.elb.amazonaws.com/data",
+      url: "http://afd91b9a720d511ea9df302af6eaa18b-378851648.eu-west-1.elb.amazonaws.com/data",
       data: JSON.stringify(formData),
       dataType: "json",
       contentType: "application/json"
@@ -52,7 +52,7 @@ function postPutain() {
 function deleteDB(ctl) {
   console.log($(ctl).attr('iddb'))
   var Id = $(ctl).attr('iddb')
-  var durl = "http://a3e47cd6c1a6611ea9df302af6eaa18b-1254097968.eu-west-1.elb.amazonaws.com/data/" + Id
+  var durl = "http://afd91b9a720d511ea9df302af6eaa18b-378851648.eu-west-1.elb.amazonaws.com/data/" + Id
   console.log(durl)
   $.ajax({
     type: 'DELETE',
