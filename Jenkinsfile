@@ -9,7 +9,7 @@ volumes: [
     node(POD_LABEL){
         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_Cred']]){
           stage('Build Image'){
-            withCredentials([usernamePassword(credentialsId: 'GitCred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+            withCredentials([usernamePassword(credentialsId: 'Git_Cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
               sh '''
               git config --global user.name $USERNAME
               git config --global user.email $USERNAME@gmail.com
