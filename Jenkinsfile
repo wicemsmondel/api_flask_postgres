@@ -13,7 +13,7 @@ volumes: [
               sh '''
               git config --global user.name $USERNAME
               git config --global user.email $USERNAME@gmail.com
-              git clone https://$USERNAME:$PASSWORD@github.com/api_flask_postgres.git
+              git clone https://$USERNAME:$PASSWORD@github.com/$USERNAME/api_flask_postgres.git
               cd api_flask_postgres/api
               GIT_COMMIT="$(git rev-parse HEAD)"
               echo '###### Git START ########'
@@ -38,14 +38,23 @@ volumes: [
           stage('Push Image In ECR'){
               container('aws'){
                   sh '''
-                  aws ecr get-login --region eu-west-1 --no-include-email | bash -
+                  aws ecr get-login --region eu-west-1 --no-include-email > docker_login 
+                  pwd
                   '''
               }
               container('docker'){
                   sh '''
-                  cd /api_flask_postgres/api
+                  $(cat docker_login)
+
+                  cd api_flask_postgres/api
                   . ./load_env.sh
-                  docker build . -t $IMAGE
+                  pwd
+                  ls -l
+                  echo "#######################"
+                  echo $IMAGE
+                  echo "#######################"
+                  docker build .
+                  docker build -t $IMAGE .
                   docker tag $IMAGE $IMAGELATEST
                   docker push $IMAGE
                   docker push $IMAGELATEST
